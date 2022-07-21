@@ -22,7 +22,7 @@ class StringHolder {
       throw new Error(error);
     }
   }
-  countWhithinBrackets() {
+  countWhithinBrackets(closeBracket = false) {
     let tempstack = [];
     let i = this.stack[this.stack.length - 1];
     while (this.stack[this.stack.length - 1] !== "(" && this.stack.length) {
@@ -30,7 +30,9 @@ class StringHolder {
 
       i = i - 1;
     }
-    this.stack.pop();
+    const openBracket = this.stack.pop();
+    if (openBracket === "(" && !closeBracket)
+      throw new Error("Closed bracket is needed");
     const result = this._simpleOperations(tempstack);
 
     return result;

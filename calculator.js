@@ -1,5 +1,5 @@
 const operations = ["+", "-", "*", "/"];
-const notNumbers = ["+", "-", "*", "/", " ", "(", " "];
+const notNumbers = ["+", "-", "*", "/", ")", "(", " "];
 
 const StringHolder = require("./stringHolder");
 const counter = require("./counter");
@@ -27,7 +27,7 @@ function calculate(string) {
         continue;
       }
       if (str[i] === ")") {
-        let res = stringHolder.countWhithinBrackets();
+        let res = stringHolder.countWhithinBrackets(true);
 
         if (["*", "/"].includes(stringHolder.showLast())) {
           res = stringHolder.countHighPriority(res);

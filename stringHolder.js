@@ -16,6 +16,7 @@ class StringHolder {
     try {
       const operation = this.stack.pop();
       const num = this.stack.pop();
+
       return this.counter.count(num, el, operation);
     } catch (error) {
       throw new Error(error);
@@ -36,13 +37,15 @@ class StringHolder {
 
   _simpleOperations(stack) {
     try {
+      console.log(stack);
       if (stack.length === 0) return 0;
       let res = stack.pop();
 
-      if (stack.length === 0 && ["+", "-"].includes(res)) {
-        return 0;
+      if (stack.length === 0 && !["+", "-"].includes(res)) {
+        return res;
       }
 
+      if (["+", "-"].includes(res)) throw new Error("Your string is incorrect");
       if (stack.length && stack[stack.length - 1] === "-") {
         res = res * -1;
         stack.pop();

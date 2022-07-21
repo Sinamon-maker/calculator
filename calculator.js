@@ -1,5 +1,5 @@
-const operations = ["+","-", "*", "/"];
-const notNumbers = ["+","-" ,"*", "/", " ", "(", " "];
+const operations = ["+", "-", "*", "/"];
+const notNumbers = ["+", "-", "*", "/", " ", "(", " "];
 
 const StringHolder = require("./stringHolder");
 const counter = require("./counter");
@@ -10,6 +10,10 @@ function calculate(string) {
 
   const re = /[a-z]/;
   try {
+    if (["*", "/"].includes(str[0])) {
+      throw new Error(`Your string should not start with ${str[0]}`);
+    }
+
     for (let i = 0; i < str.length; i += 1) {
       if (re.test(str[i])) {
         throw new Error("Your string contains letter");
@@ -36,18 +40,16 @@ function calculate(string) {
       }
       let s = "" + str[i];
 
-      while (i + 1 < str.length - 1 && !notNumbers.includes(str[i + 1])) {
+      while (i + 1 < str.length && !notNumbers.includes(str[i + 1])) {
         s += str[i + 1];
         i += 1;
       }
-      let res =s
-      if (["*", "/"].includes(stringHolder.showLast())) {
-        res = stringHolder.countHighPriority(s);
-        stringHolder.add(res);
-      }
 
-      else {
+      if (["*", "/"].includes(stringHolder.showLast())) {
+        const res = stringHolder.countHighPriority(s);
         stringHolder.add(res);
+      } else {
+        stringHolder.add(s);
       }
     }
     return stringHolder.countWhithinBrackets();

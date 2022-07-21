@@ -1,4 +1,3 @@
-
 class StringHolder {
   constructor(counter) {
     this.counter = counter;
@@ -39,10 +38,33 @@ class StringHolder {
     try {
       if (stack.length === 0) return 0;
       let res = stack.pop();
+
+      if (stack.length === 0 && ["+", "-"].includes(res)) {
+        return 0;
+      }
+
+      if (stack.length && stack[stack.length - 1] === "-") {
+        res = res * -1;
+        stack.pop();
+        if (stack[stack.length - 1] !== "+") {
+          stack.push("+");
+        }
+      }
       while (stack.length) {
         const operation = stack.pop();
-        const num = stack.pop();
-        res = this.counter.count(res, num, operation);
+
+        if (stack.length !== 0) {
+          let num = stack.pop();
+          if (stack[stack.length - 1] === "-") {
+            num = num * -1;
+            stack.pop();
+            if (stack[stack.length - 1] !== "+") {
+              stack.push("+");
+            }
+          }
+
+          res = this.counter.count(res, num, operation);
+        }
       }
       return res;
     } catch (error) {

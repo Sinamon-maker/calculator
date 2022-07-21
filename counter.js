@@ -10,7 +10,7 @@ class Counter {
       case "/":
         return this.del(num1, num2);
       default: {
-        throw new Error("Ops, something wrong");
+        throw new Error(`Ops, something wrong num1:${num1} num2:${num2} operator:${operator}`);
       }
     }
   }

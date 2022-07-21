@@ -15,9 +15,6 @@ function calculate(string) {
     }
 
     for (let i = 0; i < str.length; i += 1) {
-      if (re.test(str[i])) {
-        throw new Error("Your string contains letter");
-      }
       if (str[i] === " ") continue;
       if (str[i] === "(") {
         stringHolder.add("(");
@@ -44,7 +41,9 @@ function calculate(string) {
         s += str[i + 1];
         i += 1;
       }
-
+      if (re.test(s)) {
+        throw new Error("Your string contains letter");
+      }
       if (["*", "/"].includes(stringHolder.showLast())) {
         const res = stringHolder.countHighPriority(s);
         stringHolder.add(res);

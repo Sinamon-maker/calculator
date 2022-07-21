@@ -31,8 +31,9 @@ class StringHolder {
       i = i - 1;
     }
     this.stack.pop();
+    const result = this._simpleOperations(tempstack);
 
-    return this._simpleOperations(tempstack);
+    return result;
   }
 
   _simpleOperations(stack) {
